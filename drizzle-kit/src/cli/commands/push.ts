@@ -374,6 +374,8 @@ export const sqlitePush = async (
 				}
 			} else if (credentials.driver === 'turso') {
 				await db.batch!(statementsToExecute.map((it) => ({ query: it })));
+			} else if (credentials.driver === "d1-http") {
+				await db.run(statementsToExecute.join(''));
 			}
 			render(`[${chalk.green('✓')}] Changes applied`);
 		}
